@@ -1,39 +1,23 @@
 /* this is a custom CSS stylesheet */
 body {
-	padding-top: 70px;
+	background-color: tan;
 }
-footer {
-	padding:2em 0;
-	margin: 3em 0;
-	border-top: 1px solid #ddd;
-	color: #999;
-	text-align: center;
-}
-
-.glyphicon {
-	color: #cdae51;
-}
-
-.glyphicon-pushpin, 
-.glyphicon-heart {
-	color:#3f2b22;
+div.container {
+	
+	-moz-box-shadow: 1px 2px 3px rgba(0,0,0,.5);
+	-webkit-box-shadow: 1px 2px 3px rgba(0,0,0,.5);
+	box-shadow: 1px 2px 3px rgba(0,0,0,.5);
+	color: #696969;
+	background-color: rgba(255, 255, 255, .7);
+	margin-top: 5%;
+	margin-bottom: 5%;
+	padding-bottom: 40px;
+	padding-left: 25px;
+	padding-right: 25px;
 }
 
-.pull-right.img-responsive {
-	margin: 0 0 1em 1em;
-}
-
-.btn-info {
-	background-color: #cdae51;
-	border-color: #3f2b22;
-	color: #fff;
-}
-.btn-info:hover,
-.btn-info:focus,
-.btn-info:active,
-.btn-info.active,
-.open .dropdown-toggle.btn-info {
-  color: #ffffff;
-  background-color: #3F2B22;
-  border-color: #333;
+.little-head {
+margin-bottom: -30px;
+margin-left: 13px;
+margin-top: 40px;
 }
