@@ -20,7 +20,11 @@
 		</div>
 		<!-- internal row -->
 		<div class="row">
-			<nav></nav>
+			<ul class="nav nav-tabs">
+				<li><a href="index.jsp"></a>Login</li>
+				<li><a href="home.jsp"></a>Home Feed</li>
+				<li><a href="group.jsp"></a>Group View</li>
+			</ul>
 		</div>
 		</header>
 		<!-- row 2 -->

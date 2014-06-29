@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Facebook Login Page</title>
+<title>Group View</title>
 <!-- Bootstrap -->
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="bootstrap/css/custom.css" rel="stylesheet">
@@ -29,8 +29,25 @@
 		<!-- row 2 -->
 		<div class="row">
 			<div class="col-md-6">
-				<a href="SignIn">Click here to login with Facebook</a> After logging
-				in, <a href="ShowFriends">Click here to see your friends</a>
+				<h2>Group Title</h2>
+				<div>
+					<h3>Example Post Title</h3>
+					<h4>Post Date, Username</h4>
+					<p>Post Content</p>
+					<form action="Comment" method="POST">
+						<textarea>Enter comment here...</textarea>
+						<button class="btn btn-info" type="submit">Submit</button>
+					</form>
+					<button class="btn btn-info">View Post</button>
+				</div>
+				<c:forEach items="${homePostList}" var="post">
+					<div>
+						<p>${post.date}</p>
+						<p>${post.username}</p>
+						<p>${post.content}</p>
+					</div>
+				</c:forEach>
+
 			</div>
 		</div>
 	</div>
