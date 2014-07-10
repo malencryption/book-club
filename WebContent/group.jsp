@@ -47,7 +47,7 @@
 						<p>${post.content}</p>
 					</div>
 				</c:forEach>
-
+				
 			</div>
 		</div>
 	</div>
