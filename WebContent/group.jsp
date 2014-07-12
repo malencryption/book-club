@@ -19,10 +19,10 @@
 		</div>
 		<!-- internal row -->
 		<div class="row">
-			<ul class="nav nav-tabs">
+			<ul class="nav nav-tabs" role="tablist">
 				<li><a href="index.jsp"></a>Login</li>
 				<li><a href="home.jsp"></a>Home Feed</li>
-				<li><a href="group.jsp"></a>Group View</li>
+				<li class="active"><a href="group.jsp"></a>Group View</li>
 			</ul>
 		</div>
 		</header>

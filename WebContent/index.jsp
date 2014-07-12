@@ -19,8 +19,8 @@
 		</div>
 		<!-- internal row -->
 		<div class="row">
-			<ul class="nav nav-tabs">
-				<li><a href="index.jsp"></a>Login</li>
+			<ul class="nav nav-tabs" role="tablist">
+				<li class="active"><a href="index.jsp"></a>Login</li>
 				<li><a href="home.jsp"></a>Home Feed</li>
 				<li><a href="group.jsp"></a>Group View</li>
 			</ul>
@@ -29,8 +29,24 @@
 		<!-- row 2 -->
 		<div class="row">
 			<div class="col-md-6">
-				<a href="SignIn">Click here to login with Facebook</a> After logging
-				in, <a href="ShowFriends">Click here to see your friends</a>
+				<h2>Login</h2>
+				<form role="form" action="Login" method="POST">
+					<div class="form-group">
+						<label for="email">Email:</label> 
+						<input class="form-control"
+							type="email" name="email" />
+					</div>
+					<div class="form-group">
+					<label for="password">Password:</label> 
+					<input class="form-control" type="password"
+						name="password" />
+						</div>
+					<button type="submit">Login</button>
+				</form>
+			</div>
+			<div class="col-md-6">
+				<a href="SignIn">Or click here to login with Facebook</a> After
+				logging in, <a href="ShowFriends">Click here to see your friends</a>
 			</div>
 		</div>
 	</div>

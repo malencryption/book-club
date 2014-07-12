@@ -7,7 +7,26 @@ public class Post {
 	private String title;
 	private String content;
 	private Date date;
-	private int userId;
+	private int accountId;
+	private int clubId;
+	
+	public int getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(int accountId) {
+		this.accountId = accountId;
+	}
+
+	public int getClubId() {
+		return clubId;
+	}
+
+	public void setClubId(int clubId) {
+		this.clubId = clubId;
+	}
+
+	
 
 	public int getPostId() {
 		return postId;
@@ -41,21 +60,15 @@ public class Post {
 		this.date = date;
 	}
 
-	public int getUserId() {
-		return userId;
-	}
+	
 
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-
-	public Post(int postId, String title, String content, Date date, int userId) {
+	public Post(int postId, String title, String content, Date date, int accountId) {
 		super();
 		this.postId = postId;
 		this.title = title;
 		this.content = content;
 		this.date = date;
-		this.userId = userId;
+		this.accountId = accountId;
 	}
 
 	public Post() {
