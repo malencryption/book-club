@@ -23,7 +23,7 @@
 			<ul class="nav nav-tabs" role="tablist">
 				<li><a href="index.jsp"></a>Login</li>
 				<li class="active"><a href="home.jsp"></a>Home Feed</li>
-				<li><a href="group.jsp"></a>Group View</li>
+				<li><a href="ClubPosts"></a>Club View</li>
 			</ul>
 		</div>
 		</header>
@@ -40,7 +40,7 @@
 							<textarea>Enter comment here...</textarea>
 							<button class="btn btn-info" type="submit">Submit</button>
 						</form>
-						<button class="btn btn-info">View Post</button>
+						<button class="btn btn-info"><a href="ViewPost?postId=${post.postId }">View Post</a></button>
 					</div>
 				</c:forEach>
 
@@ -49,14 +49,14 @@
 		<!-- row 3 -->
 		<div class="row">
 			<div class="col-md-6">
-				<h2>Group Feed</h2>
+				<h2>Club Feed</h2>
 
 				<c:forEach items="${groupList}" var="post">
 					<div>
 						<h3>${post.title}</h3>
 						<h4>${post.date}</h4>
 						<p>${post.content}</p>
-						<button class="btn btn-info">View Group</button>
+						<button class="btn btn-info"><a href="ClubPost?clubId=${post.clubId }">View Club</a></button>
 					</div>
 				</c:forEach>
 			</div>

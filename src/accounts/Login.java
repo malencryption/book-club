@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import database.DbConn;
+
 /**
  * Servlet implementation class Login
  */
@@ -83,11 +85,8 @@ public class Login extends HttpServlet {
 			// String user = prop.getProperty("dbUser");
 			// String pass = prop.getProperty("dbPassword");
 
-			// Database credentials
-			final String USER = "leesaruz_iClient";
-			final String PASS = "Jd59wMUo";
-
-			Connection conn = DriverManager.getConnection(DB_CONNECTION, USER, PASS);
+			DbConn dbConn = new DbConn();
+			Connection conn = dbConn.connect();
 			
 			String sql = "SELECT * FROM post p INNER JOIN club c ON p.clubId = c.clubId WHERE accountId = ? AND NOT c.name='home'";
 			PreparedStatement stmt = conn.prepareStatement(sql);
@@ -134,12 +133,8 @@ public class Login extends HttpServlet {
 			// String user = prop.getProperty("dbUser");
 			// String pass = prop.getProperty("dbPassword");
 
-			// Database credentials
-			final String USER = "leesaruz_iClient";
-			final String PASS = "Jd59wMUo";
-
-			Connection conn = DriverManager.getConnection(DB_CONNECTION, USER,
-					PASS);
+			DbConn dbConn = new DbConn();
+			Connection conn = dbConn.connect();
 			Statement stmt = conn.createStatement();
 			String sql = "SELECT * FROM post p INNER JOIN club c ON p.clubId = c.clubId WHERE c.name='home'";
 			ResultSet resultSet = stmt.executeQuery(sql);
@@ -182,8 +177,6 @@ public class Login extends HttpServlet {
 		}
 	}
 
-	private final String DB_CONNECTION = "jdbc:mysql://localhost/book_club";
-
 	public UserAccount getUserAccountByEmail(String email) {
 		UserAccount newUserAccount = new UserAccount();
 		try {
@@ -195,12 +188,8 @@ public class Login extends HttpServlet {
 			// String user = prop.getProperty("dbUser");
 			// String pass = prop.getProperty("dbPassword");
 
-			// Database credentials
-			final String USER = "leesaruz_iClient";
-			final String PASS = "Jd59wMUo";
-
-			Connection conn = DriverManager.getConnection(DB_CONNECTION, USER,
-					PASS);
+		DbConn dbConn = new DbConn();
+			Connection conn = dbConn.connect();
 			String sql = "SELECT u.userId, u.firstName, u.lastName, a.accountId, a.email, a.password FROM user u INNER JOIN account a ON u.userId = a.accountId WHERE email=?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, email);
