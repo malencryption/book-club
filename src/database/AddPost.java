@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import accounts.Post;
+
 /**
  * Servlet implementation class CreatePost
  */
@@ -54,10 +56,17 @@ public class AddPost extends HttpServlet {
 			Date today = new Date();
 	        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 	        
-	        String username = (String) request.getSession().getAttribute("username");
 			String content = request.getParameter("newpost");
-			String date = sdf.format(today);
+			// = sdf.format(today);
 			
+			
+			// do these need to come from the jsp?
+			int tempUId = Integer.parseInt(request.getParameter("userId"));
+			int tempPId = Integer.parseInt(request.getParameter("postId"));
+
+			String titlePost = request.getParameter("title");
+			
+
 			String file;
 			String path = System.getenv("OPENSHIFT_DATA_DIR");
 		      if (path == null) {
@@ -66,12 +75,13 @@ public class AddPost extends HttpServlet {
 		         file = path + "./post.txt";
 		      }
 			
-			Post newPost = new Post(date, username, content);
+			Post newPost = new Post(tempPId, titlePost, content, today, tempUId);
 			PostList postList = new PostList(file);
-			postList.addPostToFile(newPost);
 			
-			ArrayList<Post> currentList = postList.getPostList();
-			request.setAttribute("postList", currentList);
+			// postList.addPostToFile(newPost); // is somthing like this needed to add to the database?
+			//ArrayList<Post> currentList = postList.getPostList();
+			
+			//request.setAttribute("postList", currentList);
 			
 			System.out.println("Post List: " + postList.toString());
 
