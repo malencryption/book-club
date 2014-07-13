@@ -53,7 +53,7 @@
 					<button class="btn btn-info">View Post</button>
 					</div>
 				</c:forEach>
-
+				
 			</div>
 		</div>
 	</div>
