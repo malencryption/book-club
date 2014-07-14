@@ -21,9 +21,9 @@
 		<!-- internal row -->
 		<div class="row">
 			<ul class="nav nav-tabs" role="tablist">
-				<li><a href="index.jsp"></a>Login</li>
-				<li><a href="home.jsp"></a>Home Feed</li>
-				<li class="active"><a href="ClubPosts"></a>Club View</li>
+				<li><a href="index.jsp">Login</a></li>
+				<li><a href="home.jsp">Home Feed</a></li>
+				<li class="active"><a href="ClubPosts">Club View</a></li>
 			</ul>
 		</div>
 		</header>

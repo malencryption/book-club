@@ -21,7 +21,7 @@ import database.DbConn;
 /**
  * Servlet implementation class groupPosts
  */
-@WebServlet("/groupPosts")
+@WebServlet("/clubPosts")
 public class ClubPosts extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -42,7 +42,7 @@ public class ClubPosts extends HttpServlet {
 		int clubId = Integer.parseInt(request.getParameter("clubId"));
 		ArrayList<Post> clubPosts = getClubPosts(clubId);
 		request.setAttribute("clubPostList", clubPosts);
-		request.getRequestDispatcher("/home.jsp").forward(request, response);
+		request.getRequestDispatcher("/clubPosts.jsp").forward(request, response);
 	}
 
 	private ArrayList<Post> getClubPosts(int clubId) {

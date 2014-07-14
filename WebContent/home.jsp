@@ -56,7 +56,7 @@
 						<h3>${post.title}</h3>
 						<h4>${post.date}</h4>
 						<p>${post.content}</p>
-						<a class="btn btn-info" href="ClubPost?clubId=${post.clubId }">View Club</a>
+						<a class="btn btn-info" href="clubPosts?clubId=${post.clubId }">View Club</a>
 					</div>
 				</c:forEach>
 			</div>
