@@ -36,10 +36,6 @@
 						<h3>${post.title}</h3>
 						<h4>${post.date}</h4>
 						<p>${post.content}</p>
-						<form action="Comment" method="POST">
-							<textarea>Enter comment here...</textarea>
-							<button class="btn btn-info" type="submit">Submit</button>
-						</form>
 						<a class="btn btn-info" href="ViewPost?postId=${post.postId }">View Post</a>
 					</div>
 				</c:forEach>

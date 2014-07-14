@@ -1,6 +1,12 @@
 package accounts;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
+
+import database.DbConn;
 
 public class Post {
 	private int postId;
@@ -60,8 +66,6 @@ public class Post {
 		this.date = date;
 	}
 
-	
-
 	public Post(int postId, String title, String content, Date date, int accountId) {
 		super();
 		this.postId = postId;
@@ -73,5 +77,49 @@ public class Post {
 
 	public Post() {
 
+	}
+	
+	public static Post getPostById(int Id){
+		Post newPost = new Post();
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			// Properties prop = new Properties();
+			// prop.load(getClass().getResourceAsStream("/DbAccess.properties"));
+			//
+			// String user = prop.getProperty("dbUser");
+			// String pass = prop.getProperty("dbPassword");
+
+			DbConn dbConn = new DbConn();
+			Connection conn = dbConn.connect();
+			
+			String sql = "SELECT * FROM post p WHERE postId = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, Id);
+			ResultSet resultSet = stmt.executeQuery();
+
+			while (resultSet.next()) {
+				int postId = resultSet.getInt("postId");
+				String title = resultSet.getString("title");
+				String content = resultSet.getString("content");
+				Date date = resultSet.getDate("date");
+//				int accountId = resultSet.getInt("accountId");
+//				int clubId = resultSet.getInt("clubId");
+
+				newPost.setPostId(postId);
+				newPost.setTitle(title);
+				newPost.setContent(content);
+				newPost.setDate(date);
+//				newPost.setAccountId(accountId);
+//				newPost.setClubId(clubId);
+			}
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	
+		return newPost;
 	}
 }

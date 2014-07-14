@@ -35,12 +35,12 @@ public class LoadPosts extends HttpServlet {
 	         file = path + "./post.txt";
 	      }
 		
-		PostList postList = new PostList(file);
+//		PostList postList = new PostList(file);
 		
-		ArrayList<Post> currentList = postList.getPostList();
-		request.setAttribute("postList", currentList);
+//		ArrayList<Post> currentList = postList.getPostList();
+//		request.setAttribute("postList", currentList);
 		
-		System.out.println("Post List: " + postList.toString());
+//		System.out.println("Post List: " + postList.toString());
 
 		request.getRequestDispatcher("viewposts.jsp").forward(request, response);
 	}

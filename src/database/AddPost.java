@@ -56,17 +56,10 @@ public class AddPost extends HttpServlet {
 			Date today = new Date();
 	        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 	        
+	        String username = (String) request.getSession().getAttribute("username");
 			String content = request.getParameter("newpost");
-			// = sdf.format(today);
+			String date = sdf.format(today);
 			
-			
-			// do these need to come from the jsp?
-			int tempUId = Integer.parseInt(request.getParameter("userId"));
-			int tempPId = Integer.parseInt(request.getParameter("postId"));
-
-			String titlePost = request.getParameter("title");
-			
-
 			String file;
 			String path = System.getenv("OPENSHIFT_DATA_DIR");
 		      if (path == null) {
@@ -75,15 +68,14 @@ public class AddPost extends HttpServlet {
 		         file = path + "./post.txt";
 		      }
 			
-			Post newPost = new Post(tempPId, titlePost, content, today, tempUId);
-			PostList postList = new PostList(file);
+			Post newPost = new Post();
+//			PostList postList = new PostList(file);
+//			postList.addPostToFile(newPost);
 			
-			// postList.addPostToFile(newPost); // is somthing like this needed to add to the database?
-			//ArrayList<Post> currentList = postList.getPostList();
+//			ArrayList<Post> currentList = postList.getPostList();
+//			request.setAttribute("postList", currentList);
 			
-			//request.setAttribute("postList", currentList);
-			
-			System.out.println("Post List: " + postList.toString());
+//			System.out.println("Post List: " + postList.toString());
 
 			request.getRequestDispatcher("viewposts.jsp").forward(request, response);
 //			response.sendRedirect("viewposts.jsp");

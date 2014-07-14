@@ -42,7 +42,6 @@ public class DbConn {
 			conn = DriverManager.getConnection(DB_CONNECTION, USER,
 					PASS);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

@@ -32,7 +32,6 @@ public class Login extends HttpServlet {
 	 */
 	public Login() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -56,11 +55,11 @@ public class Login extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		boolean loginStatus = checkLogin(email, password);
 		if (loginStatus) {
-			// set session variable
-			// session.setAttribute("user", user);
 			
 			ArrayList<Post> homePostList = HomePosts.getHomePosts();
 			UserAccount userAccount = UserAccount.getUserAccountByEmail(email);
+			// set session variable
+			session.setAttribute("accountId", userAccount.getAccountId());
 			ArrayList<Post> clubPostList = ClubPosts.getClubPostsByAcct(userAccount.getAccountId());
 			
 			request.setAttribute("clubPostList", clubPostList);
@@ -73,52 +72,6 @@ public class Login extends HttpServlet {
 			response.sendRedirect("/login.jsp");
 		}
 	}
-
-//	private ArrayList<Post> getGroups(int acctId) {
-//		ArrayList<Post> list = new ArrayList<Post>();
-//		try {
-//			Class.forName("com.mysql.jdbc.Driver");
-//
-//			// Properties prop = new Properties();
-//			// prop.load(getClass().getResourceAsStream("/DbAccess.properties"));
-//			//
-//			// String user = prop.getProperty("dbUser");
-//			// String pass = prop.getProperty("dbPassword");
-//
-//			DbConn dbConn = new DbConn();
-//			Connection conn = dbConn.connect();
-//			
-//			String sql = "SELECT * FROM post p INNER JOIN club c ON p.clubId = c.clubId WHERE accountId = ? AND NOT c.name='home'";
-//			PreparedStatement stmt = conn.prepareStatement(sql);
-//			stmt.setInt(1, acctId);
-//			ResultSet resultSet = stmt.executeQuery();
-//
-//			while (resultSet.next()) {
-//				int postId = resultSet.getInt("postId");
-//				String title = resultSet.getString("title");
-//				String content = resultSet.getString("content");
-//				Date date = resultSet.getDate("date");
-//				int accountId = resultSet.getInt("accountId");
-//				int clubId = resultSet.getInt("clubId");
-//
-//				Post newPost = new Post();
-//				newPost.setPostId(postId);
-//				newPost.setTitle(title);
-//				newPost.setContent(content);
-//				newPost.setDate(date);
-//				newPost.setAccountId(accountId);
-//				newPost.setClubId(clubId);
-//
-//				list.add(newPost);
-//			}
-//
-//		} catch (ClassNotFoundException e) {
-//			e.printStackTrace();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return list;
-//	}
 
 	private boolean checkLogin(String email, String password) {
 		UserAccount userAccount = UserAccount.getUserAccountByEmail(email);
