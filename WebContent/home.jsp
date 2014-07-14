@@ -22,7 +22,7 @@
 		<div class="row">
 			<ul class="nav nav-tabs" role="tablist">
 				<li><a href="index.jsp">Login</a></li>
-				<li class="active"><a href="home.jsp">Home Feed</a></li>
+				<li class="active"><a href="HomePosts">Home Feed</a></li>
 				<li><a href="ClubPosts">Club View</a></li>
 			</ul>
 		</div>
