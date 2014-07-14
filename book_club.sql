@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 08, 2014 at 03:59 AM
+-- Generation Time: Jul 14, 2014 at 02:40 PM
 -- Server version: 5.6.14
 -- PHP Version: 5.5.6
 
@@ -118,18 +118,19 @@ INSERT INTO `book` (`bookId`, `title`, `genreId`) VALUES
 CREATE TABLE IF NOT EXISTS `club` (
   `clubId` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `dateCreated` date NOT NULL,
-  `bookId` int(10) unsigned NOT NULL,
+  `bookId` int(10) unsigned DEFAULT NULL,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`clubId`),
   KEY `bookId` (`bookId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `club`
 --
 
 INSERT INTO `club` (`clubId`, `dateCreated`, `bookId`, `name`) VALUES
-(1, '2014-07-07', 1, 'Harry Potter 1');
+(1, '2014-07-07', 1, 'Harry Potter 1'),
+(2, '2014-07-11', NULL, 'home');
 
 -- --------------------------------------------------------
 
@@ -169,14 +170,19 @@ CREATE TABLE IF NOT EXISTS `comment` (
   PRIMARY KEY (`commentId`),
   KEY `memberId` (`accountId`),
   KEY `postId` (`postId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `comment`
 --
 
 INSERT INTO `comment` (`commentId`, `content`, `date`, `accountId`, `postId`) VALUES
-(1, 'your post is a test', '2014-07-07', 1, 1);
+(1, 'your post is a test', '2014-07-07', 1, 1),
+(2, 'yes', '2014-07-14', 1, 1),
+(3, 'thank you', '2014-07-14', 1, 1),
+(4, 'hello', '2014-07-14', 1, 2),
+(5, 'you are welcome', '2014-07-14', 1, 1),
+(6, 'I agree', '2014-07-14', 1, 4);
 
 -- --------------------------------------------------------
 
@@ -208,18 +214,25 @@ CREATE TABLE IF NOT EXISTS `post` (
   `postId` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(50) NOT NULL,
   `content` varchar(200) NOT NULL,
-  `date` date NOT NULL,
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `accountId` int(10) unsigned NOT NULL,
+  `clubId` int(10) unsigned NOT NULL,
   PRIMARY KEY (`postId`),
-  KEY `memberId` (`accountId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  KEY `memberId` (`accountId`),
+  KEY `clubId` (`clubId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `post`
 --
 
-INSERT INTO `post` (`postId`, `title`, `content`, `date`, `accountId`) VALUES
-(1, 'test post', 'this is a post ', '2014-07-07', 1);
+INSERT INTO `post` (`postId`, `title`, `content`, `date`, `accountId`, `clubId`) VALUES
+(1, 'test post', 'this is a post ', '2014-07-07 00:00:00', 1, 1),
+(2, 'Home Post', 'test', '2014-07-11 00:00:00', 1, 2),
+(3, 'gummy', 'worms', '2014-07-14 05:49:47', 1, 1),
+(4, 'peep', 'yumm', '2014-07-14 05:54:12', 1, 1),
+(5, 'workin', 'it out', '2014-07-14 05:55:45', 1, 1),
+(6, 'rocky road', 'go go', '2014-07-14 05:57:30', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -255,8 +268,8 @@ ALTER TABLE `account`
 -- Constraints for table `authorlookup`
 --
 ALTER TABLE `authorlookup`
-  ADD CONSTRAINT `authorlookup_ibfk_2` FOREIGN KEY (`authorId`) REFERENCES `author` (`authorId`),
-  ADD CONSTRAINT `authorlookup_ibfk_1` FOREIGN KEY (`bookId`) REFERENCES `book` (`bookId`);
+  ADD CONSTRAINT `authorlookup_ibfk_1` FOREIGN KEY (`bookId`) REFERENCES `book` (`bookId`),
+  ADD CONSTRAINT `authorlookup_ibfk_2` FOREIGN KEY (`authorId`) REFERENCES `author` (`authorId`);
 
 --
 -- Constraints for table `book`
@@ -281,14 +294,15 @@ ALTER TABLE `clubmember`
 -- Constraints for table `comment`
 --
 ALTER TABLE `comment`
-  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`postId`) REFERENCES `post` (`postId`),
-  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`accountId`) REFERENCES `account` (`accountId`);
+  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`accountId`) REFERENCES `account` (`accountId`),
+  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`postId`) REFERENCES `post` (`postId`);
 
 --
 -- Constraints for table `post`
 --
 ALTER TABLE `post`
-  ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`accountId`) REFERENCES `account` (`accountId`);
+  ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`accountId`) REFERENCES `account` (`accountId`),
+  ADD CONSTRAINT `post_ibfk_2` FOREIGN KEY (`clubId`) REFERENCES `club` (`clubId`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
