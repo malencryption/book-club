@@ -59,14 +59,14 @@ public class Login extends HttpServlet {
 			// set session variable
 			// session.setAttribute("user", user);
 			
-			ArrayList<Post> homePostList = getHomePosts();
-			UserAccount userAccount = getUserAccountByEmail(email);
-			ArrayList<Post> groupList = getGroups(userAccount.getAccountId());
+			ArrayList<Post> homePostList = HomePosts.getHomePosts();
+			UserAccount userAccount = UserAccount.getUserAccountByEmail(email);
+			ArrayList<Post> clubPostList = ClubPosts.getClubPostsByAcct(userAccount.getAccountId());
 			
-			request.setAttribute("groupList", groupList);
+			request.setAttribute("clubPostList", clubPostList);
 			request.setAttribute("user", userAccount);
 			request.setAttribute("homePostList", homePostList);
-			 request.getRequestDispatcher("/home.jsp").forward(request, response);
+			request.getRequestDispatcher("/home.jsp").forward(request, response);
 			
 //			response.sendRedirect("home.jsp");
 		} else {
@@ -74,102 +74,54 @@ public class Login extends HttpServlet {
 		}
 	}
 
-	private ArrayList<Post> getGroups(int acctId) {
-		ArrayList<Post> list = new ArrayList<Post>();
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-
-			// Properties prop = new Properties();
-			// prop.load(getClass().getResourceAsStream("/DbAccess.properties"));
-			//
-			// String user = prop.getProperty("dbUser");
-			// String pass = prop.getProperty("dbPassword");
-
-			DbConn dbConn = new DbConn();
-			Connection conn = dbConn.connect();
-			
-			String sql = "SELECT * FROM post p INNER JOIN club c ON p.clubId = c.clubId WHERE accountId = ? AND NOT c.name='home'";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, acctId);
-			ResultSet resultSet = stmt.executeQuery();
-
-			while (resultSet.next()) {
-				int postId = resultSet.getInt("postId");
-				String title = resultSet.getString("title");
-				String content = resultSet.getString("content");
-				Date date = resultSet.getDate("date");
-				int accountId = resultSet.getInt("accountId");
-				int clubId = resultSet.getInt("clubId");
-
-				Post newPost = new Post();
-				newPost.setPostId(postId);
-				newPost.setTitle(title);
-				newPost.setContent(content);
-				newPost.setDate(date);
-				newPost.setAccountId(accountId);
-				newPost.setClubId(clubId);
-
-				list.add(newPost);
-			}
-
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return list;
-	}
-
-	private ArrayList<Post> getHomePosts() {
-		ArrayList<Post> list = new ArrayList<Post>();
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-
-			// Properties prop = new Properties();
-			// prop.load(getClass().getResourceAsStream("/DbAccess.properties"));
-			//
-			// String user = prop.getProperty("dbUser");
-			// String pass = prop.getProperty("dbPassword");
-
-			DbConn dbConn = new DbConn();
-			Connection conn = dbConn.connect();
-			Statement stmt = conn.createStatement();
-			String sql = "SELECT * FROM post p INNER JOIN club c ON p.clubId = c.clubId WHERE c.name='home'";
-			ResultSet resultSet = stmt.executeQuery(sql);
-
-			while (resultSet.next()) {
-				int postId = resultSet.getInt("postId");
-				String title = resultSet.getString("title");
-				String content = resultSet.getString("content");
-				Date date = resultSet.getDate("date");
-				int accountId = resultSet.getInt("accountId");
-				int clubId = resultSet.getInt("clubId");
-
-				Post newPost = new Post();
-				newPost.setPostId(postId);
-				newPost.setTitle(title);
-				newPost.setContent(content);
-				newPost.setDate(date);
-				newPost.setAccountId(accountId);
-				newPost.setClubId(clubId);
-
-				list.add(newPost);
-			}
-
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return list;
-	}
+//	private ArrayList<Post> getGroups(int acctId) {
+//		ArrayList<Post> list = new ArrayList<Post>();
+//		try {
+//			Class.forName("com.mysql.jdbc.Driver");
+//
+//			// Properties prop = new Properties();
+//			// prop.load(getClass().getResourceAsStream("/DbAccess.properties"));
+//			//
+//			// String user = prop.getProperty("dbUser");
+//			// String pass = prop.getProperty("dbPassword");
+//
+//			DbConn dbConn = new DbConn();
+//			Connection conn = dbConn.connect();
+//			
+//			String sql = "SELECT * FROM post p INNER JOIN club c ON p.clubId = c.clubId WHERE accountId = ? AND NOT c.name='home'";
+//			PreparedStatement stmt = conn.prepareStatement(sql);
+//			stmt.setInt(1, acctId);
+//			ResultSet resultSet = stmt.executeQuery();
+//
+//			while (resultSet.next()) {
+//				int postId = resultSet.getInt("postId");
+//				String title = resultSet.getString("title");
+//				String content = resultSet.getString("content");
+//				Date date = resultSet.getDate("date");
+//				int accountId = resultSet.getInt("accountId");
+//				int clubId = resultSet.getInt("clubId");
+//
+//				Post newPost = new Post();
+//				newPost.setPostId(postId);
+//				newPost.setTitle(title);
+//				newPost.setContent(content);
+//				newPost.setDate(date);
+//				newPost.setAccountId(accountId);
+//				newPost.setClubId(clubId);
+//
+//				list.add(newPost);
+//			}
+//
+//		} catch (ClassNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return list;
+//	}
 
 	private boolean checkLogin(String email, String password) {
-		UserAccount userAccount = getUserAccountByEmail(email);
+		UserAccount userAccount = UserAccount.getUserAccountByEmail(email);
 		if (password.equals(userAccount.getPassword())) {
 			return true;
 		} else {
@@ -177,46 +129,4 @@ public class Login extends HttpServlet {
 		}
 	}
 
-	public UserAccount getUserAccountByEmail(String email) {
-		UserAccount newUserAccount = new UserAccount();
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-
-			// Properties prop = new Properties();
-			// prop.load(getClass().getResourceAsStream("/DbAccess.properties"));
-			//
-			// String user = prop.getProperty("dbUser");
-			// String pass = prop.getProperty("dbPassword");
-
-		DbConn dbConn = new DbConn();
-			Connection conn = dbConn.connect();
-			String sql = "SELECT u.userId, u.firstName, u.lastName, a.accountId, a.email, a.password FROM user u INNER JOIN account a ON u.userId = a.accountId WHERE email=?";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(1, email);
-			ResultSet resultSet = stmt.executeQuery();
-
-			while (resultSet.next()) {
-				int userId = resultSet.getInt("userId");
-				String firstName = resultSet.getString("firstName");
-				String lastName = resultSet.getString("lastName");
-				int accountId = resultSet.getInt("accountId");
-				String password = resultSet.getString("password");
-
-				newUserAccount.setUserId(userId);
-				newUserAccount.setFirstName(firstName);
-				newUserAccount.setLastName(lastName);
-				newUserAccount.setAccountId(accountId);
-				newUserAccount.setEmail(email);
-				newUserAccount.setPassword(password);
-			}
-
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return newUserAccount;
-	}
 }

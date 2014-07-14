@@ -1,5 +1,12 @@
 package accounts;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import database.DbConn;
+
 public class UserAccount {
 	private int accountId;
 	private String email;
@@ -55,5 +62,46 @@ public class UserAccount {
 	
 	public UserAccount(){
 		
+	}
+	
+	public static UserAccount getUserAccountByEmail(String email) {
+		UserAccount newUserAccount = new UserAccount();
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			// Properties prop = new Properties();
+			// prop.load(getClass().getResourceAsStream("/DbAccess.properties"));
+			//
+			// String user = prop.getProperty("dbUser");
+			// String pass = prop.getProperty("dbPassword");
+
+		DbConn dbConn = new DbConn();
+			Connection conn = dbConn.connect();
+			String sql = "SELECT u.userId, u.firstName, u.lastName, a.accountId, a.email, a.password FROM user u INNER JOIN account a ON u.userId = a.accountId WHERE email=?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, email);
+			ResultSet resultSet = stmt.executeQuery();
+
+			while (resultSet.next()) {
+				int userId = resultSet.getInt("userId");
+				String firstName = resultSet.getString("firstName");
+				String lastName = resultSet.getString("lastName");
+				int accountId = resultSet.getInt("accountId");
+				String password = resultSet.getString("password");
+
+				newUserAccount.setUserId(userId);
+				newUserAccount.setFirstName(firstName);
+				newUserAccount.setLastName(lastName);
+				newUserAccount.setAccountId(accountId);
+				newUserAccount.setEmail(email);
+				newUserAccount.setPassword(password);
+			}
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return newUserAccount;
 	}
 }
