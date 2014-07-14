@@ -12,7 +12,7 @@ public class Post {
 	private int postId;
 	private String title;
 	private String content;
-	private Date date;
+	private String date;
 	private int accountId;
 	private int clubId;
 	
@@ -58,15 +58,15 @@ public class Post {
 		this.content = content;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
-	public Post(int postId, String title, String content, Date date, int accountId) {
+	public Post(int postId, String title, String content, String date, int accountId) {
 		super();
 		this.postId = postId;
 		this.title = title;
@@ -102,7 +102,7 @@ public class Post {
 				int postId = resultSet.getInt("postId");
 				String title = resultSet.getString("title");
 				String content = resultSet.getString("content");
-				Date date = resultSet.getDate("date");
+				String date = resultSet.getString("date");
 //				int accountId = resultSet.getInt("accountId");
 //				int clubId = resultSet.getInt("clubId");
 
@@ -121,5 +121,43 @@ public class Post {
 		}
 	
 		return newPost;
+	}
+	public static void addPost(Post post) {
+		Post newPost = post;
+//		int postId = newPost.getPostId();
+		String title = newPost.getTitle();
+		String content = newPost.getContent();
+		String date = newPost.getDate();
+		int accountId = newPost.getAccountId();
+		int clubId = newPost.getClubId();
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		String currTime = sdf.format(date);
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			// Properties prop = new Properties();
+			// prop.load(getClass().getResourceAsStream("/DbAccess.properties"));
+			//
+			// String user = prop.getProperty("dbUser");
+			// String pass = prop.getProperty("dbPassword");
+
+			DbConn dbConn = new DbConn();
+			Connection conn = dbConn.connect();
+
+			String sql = "INSERT INTO post ( title, content, date, accountId, clubId) VALUES (?, ?, ?, ?, ?)";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, title);
+			stmt.setString(2, content);
+			stmt.setString(3, date);
+			stmt.setInt(4, accountId);
+			stmt.setInt(5, clubId);
+			
+			stmt.executeUpdate();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

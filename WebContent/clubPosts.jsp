@@ -30,8 +30,8 @@
 		<!-- row 2 -->
 		<div class="row">
 			<div class="col-md-6">
-				<h2>${club.title }</h2>
-				<p><a href="addPost.jsp">New Post</a></p>
+				<h2>Club Posts</h2>
+				<p><a href="AddPost?clubId=${param.clubId }">New Post</a></p>
 				<c:forEach items="${clubPostList}" var="post">
 					<div>
 						<h3>${post.title }</h3>

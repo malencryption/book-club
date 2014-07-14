@@ -145,9 +145,7 @@ public class Comment {
 			stmt.setInt(3, accountId);
 			stmt.setInt(4, postId);
 			
-			
 			stmt.executeUpdate();
-
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

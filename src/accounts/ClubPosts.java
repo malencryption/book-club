@@ -68,7 +68,7 @@ public class ClubPosts extends HttpServlet {
 				int postId = resultSet.getInt("postId");
 				String title = resultSet.getString("title");
 				String content = resultSet.getString("content");
-				Date date = resultSet.getDate("date");
+				String date = resultSet.getString("date");
 				int accountId = resultSet.getInt("accountId");
 				int cId = resultSet.getInt("clubId");
 
@@ -122,7 +122,7 @@ public class ClubPosts extends HttpServlet {
 				int postId = resultSet.getInt("postId");
 				String title = resultSet.getString("title");
 				String content = resultSet.getString("content");
-				Date date = resultSet.getDate("date");
+				String date = resultSet.getString("date");
 				int accountId = resultSet.getInt("accountId");
 				int clubId = resultSet.getInt("clubId");
 
