@@ -51,12 +51,12 @@
 			<div class="col-md-12">
 				<h2>Club Feed</h2>
 
-				<c:forEach items="${clubPostList}" var="post">
+				<c:forEach items="${userClubList}" var="club">
 					<div>
-						<h3>${post.title}</h3>
-						<h4>${post.date}</h4>
-						<p>${post.content}</p>
-						<a class="btn btn-info" href="clubPosts?clubId=${post.clubId }">View
+						<h3>${club.name}</h3>
+						<h4>${club.dateCreated}</h4>
+						<p> <span class="glyphicon glyphicon-book"></span> ${club.bookTitle}</p>
+						<a class="btn btn-info" href="clubPosts?clubId=${club.clubId }">View
 							Club</a>
 					</div>
 				</c:forEach>
@@ -73,7 +73,7 @@
 					<div>
 						<h3>${club.name}</h3>
 						<h4>${club.dateCreated}</h4>
-						<h4>${club.bookTitle}</h4>
+						<h4> <span class="glyphicon glyphicon-book"></span> ${club.bookTitle}</h4>
 						<a class="btn btn-info" href="viewClub?clubId=${club.clubId }">View
 							Club</a>
 					</div>

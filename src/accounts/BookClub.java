@@ -46,6 +46,7 @@ public class BookClub {
 	public void setBookId(int bookId) {
 		this.bookId = bookId;
 	}
+
 	public String getBookTitle() {
 		return this.bookTitle;
 	}
@@ -53,7 +54,8 @@ public class BookClub {
 	public void setBookTitle(String title) {
 		this.bookTitle = title;
 	}
-	public static ArrayList<BookClub> getBookClubs(){
+
+	public static ArrayList<BookClub> getBookClubs() {
 		ArrayList<BookClub> bookClubList = new ArrayList<BookClub>();
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -66,7 +68,7 @@ public class BookClub {
 
 			DbConn dbConn = new DbConn();
 			Connection conn = dbConn.connect();
-			
+
 			String sql = "SELECT c.clubId, c.dateCreated, c.name, c.bookId, b.title FROM club c INNER JOIN book b ON c.bookId = b.bookId";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			ResultSet resultSet = stmt.executeQuery();
@@ -94,7 +96,51 @@ public class BookClub {
 			e.printStackTrace();
 		}
 		return bookClubList;
-		
+
 	}
-	
+
+	public static ArrayList<BookClub> getBookClubsByAcct(int accountId) {
+		ArrayList<BookClub> bookClubList = new ArrayList<BookClub>();
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			// Properties prop = new Properties();
+			// prop.load(getClass().getResourceAsStream("/DbAccess.properties"));
+			//
+			// String user = prop.getProperty("dbUser");
+			// String pass = prop.getProperty("dbPassword");
+
+			DbConn dbConn = new DbConn();
+			Connection conn = dbConn.connect();
+
+			String sql = "SELECT c.clubId, c.dateCreated, c.name, c.bookId, b.title FROM club c JOIN book b ON c.bookId = b.bookId JOIN clubMember cm ON c.clubId = cm.clubId WHERE accountId=? ";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, accountId);
+
+			ResultSet resultSet = stmt.executeQuery();
+
+			while (resultSet.next()) {
+				int clubId = resultSet.getInt("clubId");
+				String date = resultSet.getString("dateCreated");
+				String name = resultSet.getString("name");
+				int bookId = resultSet.getInt("bookId");
+				String bookTitle = resultSet.getString("title");
+
+				BookClub newBookClub = new BookClub();
+				newBookClub.setClubId(clubId);
+				newBookClub.setDateCreated(date);
+				newBookClub.setName(name);
+				newBookClub.setBookId(bookId);
+				newBookClub.setBookTitle(bookTitle);
+
+				bookClubList.add(newBookClub);
+			}
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return bookClubList;
+	}
 }

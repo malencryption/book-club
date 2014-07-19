@@ -144,4 +144,47 @@ public class Club {
 		}
 		return lastId;
 	}
+
+	public static ArrayList<Club> getClubsByAcct(int accountId) {
+		ArrayList<Club> clubList = new ArrayList<Club>();
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			// Properties prop = new Properties();
+			// prop.load(getClass().getResourceAsStream("/DbAccess.properties"));
+			//
+			// String user = prop.getProperty("dbUser");
+			// String pass = prop.getProperty("dbPassword");
+
+			DbConn dbConn = new DbConn();
+			Connection conn = dbConn.connect();
+			
+			String sql = "SELECT * FROM club c JOIN clubMember cm ON c.clubId = cm.clubId WHERE accountId=? ";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, accountId);
+			
+			ResultSet resultSet = stmt.executeQuery();
+
+			while (resultSet.next()) {
+				int clubId = resultSet.getInt("clubId");
+				String date = resultSet.getString("dateCreated");
+				String name = resultSet.getString("name");
+				int bookId = resultSet.getInt("bookId");
+
+				Club newClub = new Club();
+				newClub.setClubId(clubId);
+				newClub.setDateCreated(date);
+				newClub.setName(name);
+				newClub.setBookId(bookId);
+
+				clubList.add(newClub);
+			}
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return clubList;
+	}
 }

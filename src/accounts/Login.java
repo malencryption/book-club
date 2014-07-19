@@ -62,11 +62,11 @@ public class Login extends HttpServlet {
 			UserAccount userAccount = UserAccount.getUserAccountByEmail(email);
 			// set session variable
 			session.setAttribute("accountId", userAccount.getAccountId());
-			ArrayList<Post> clubPostList = ClubPosts.getClubPostsByAcct(userAccount.getAccountId());
+			ArrayList<BookClub> userClubList = BookClub.getBookClubsByAcct(userAccount.getAccountId());
 			ArrayList<BookClub> bookClubList = BookClub.getBookClubs();
 			int clubId = HomePosts.getHomeClubId();
 			
-			request.setAttribute("clubPostList", clubPostList);
+			request.setAttribute("userClubList", userClubList);
 			request.setAttribute("clubList", bookClubList);
 			request.setAttribute("clubId", clubId);
 			request.setAttribute("user", userAccount);

@@ -14,7 +14,7 @@
 		<!-- row 1 -->
 		<header class="row">
 		<div class="col-md-9">
-			<img alt="books" src="bootstrap/img/books.jpg">
+			<img alt="books" src="/bootstrap/img/books.jpg">
 			<p class="little-head">Welcome to the</p>
 			<h1>Book Club App</h1>
 		</div>
