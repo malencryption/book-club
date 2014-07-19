@@ -40,7 +40,9 @@ public class Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
+		ArrayList<Post> homePostList = HomePosts.getHomePosts();
+		request.setAttribute("homePostList", homePostList);
+		request.getRequestDispatcher("/home.jsp").forward(request, response);
 	}
 
 	/**
@@ -78,6 +80,17 @@ public class Login extends HttpServlet {
 		if (password.equals(userAccount.getPassword())) {
 			return true;
 		} else {
+			return false;
+		}
+	}
+	
+	boolean loginWithFacebook(String fbId){
+		UserAccount fbUser = UserAccount.getUserAccountByFbId(fbId);
+		String id = fbUser.getFbId();
+		if (fbId.equals(id)){
+			return true;
+		}
+		else {
 			return false;
 		}
 	}

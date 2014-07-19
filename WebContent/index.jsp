@@ -13,9 +13,12 @@
 	<div class="container">
 		<!-- row 1 -->
 		<header class="row">
-		<div class="col-md-12">
+		<div class="col-md-9">
 			<p class="little-head">Welcome to the</p>
 			<h1>Book Club App</h1>
+		</div>
+		<div class="col-md-3">
+		<p>Welcome ${user.firstName }</p>
 		</div>
 		<!-- internal row -->
 		<div class="row">
@@ -45,8 +48,9 @@
 				</form>
 			</div>
 			<div class="col-md-3">
-				<a href="SignIn">Or click here to login with Facebook</a> After
-				logging in, <a href="ShowFriends">Click here to see your friends</a>
+				<p>Or click here to<a class="btn btn-info" href="SignIn"> Login with Facebook</a> 
+				 After logging in, <a href="ShowFriends">Click here to see your friends</a>
+				</p>
 			</div>
 		</div>
 	</div>
