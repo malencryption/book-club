@@ -31,23 +31,29 @@
 		<!-- row 2 -->
 		<div class="row">
 			<div class="col-md-6">
-				<h2>View Post</h2>
-
 				<div>
-
-					<h3>${post.title}</h3>
+					<h2>${post.title}</h2>
+					<h4>By ${user.firstName}</h4>
 					<h4>${post.date}</h4>
 					<p>${post.content}</p>
-					<c:forEach items="${commentList }" var="comment">
-						<h4>${comment.date}</h4>
-						<p>${comment.content}</p>
-					</c:forEach>
-					<form action="AddComment" method="POST">
-							<textarea name="content">Enter comment here...</textarea>
-							<input type="hidden" name="postId" value="${post.postId }"/>
+					<div>
+						<h4>Comments:</h4>
+						<c:forEach items="${commentList }" var="comment">
+							<h4>By ${comment.firstName}, ${comment.date}</h4>
+							<p>${comment.content}</p>
+						</c:forEach>
+						<form action="AddComment" method="POST" role="form">
+							<div class="form-group">
+								<textarea class="form-control" name="content">Enter comment here...</textarea>
+							</div>
+							<input type="hidden" name="postId" value="${post.postId }" />
 							<button class="btn btn-info" type="submit">Submit</button>
 						</form>
+					</div>
 				</div>
+				<p><a class="btn btn-info" href="clubPosts?clubId=${post.clubId}">View
+					all posts in ${clubName}</a>
+					</p>
 			</div>
 		</div>
 	</div>

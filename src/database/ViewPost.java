@@ -9,8 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import accounts.Club;
 import accounts.Comment;
 import accounts.Post;
+import accounts.UserAccount;
+import accounts.UserComment;
 
 /**
  * Servlet implementation class ViewPost
@@ -35,11 +38,17 @@ public class ViewPost extends HttpServlet {
 		// get post and comments
 		int postId = Integer.parseInt(request.getParameter("postId"));
 		Post post = Post.getPostById(postId);
-System.out.println("getting comments");
-		ArrayList<Comment> commentList = Comment.getCommentsByPostId(postId);
+		UserAccount user = UserAccount.getUserAccountByAcctId(post.getAccountId());
+		System.out.println("getting comments");
+		ArrayList<UserComment> commentList = UserComment.getUserCommentsByPostId(postId);
+		int clubId = post.getClubId();
+		String clubName = Club.getNameByClubId(clubId);
+		request.setAttribute("user", user);
+		request.setAttribute("clubName", clubName);
 		request.setAttribute("commentList", commentList);
 		request.setAttribute("post", post);
-		request.getRequestDispatcher("/viewPost.jsp").forward(request, response);
+		request.getRequestDispatcher("/viewPost.jsp")
+				.forward(request, response);
 	}
 
 	/**

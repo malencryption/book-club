@@ -103,15 +103,15 @@ public class Post {
 				String title = resultSet.getString("title");
 				String content = resultSet.getString("content");
 				String date = resultSet.getString("date");
-//				int accountId = resultSet.getInt("accountId");
-//				int clubId = resultSet.getInt("clubId");
+				int accountId = resultSet.getInt("accountId");
+				int clubId = resultSet.getInt("clubId");
 
 				newPost.setPostId(postId);
 				newPost.setTitle(title);
 				newPost.setContent(content);
 				newPost.setDate(date);
-//				newPost.setAccountId(accountId);
-//				newPost.setClubId(clubId);
+				newPost.setAccountId(accountId);
+				newPost.setClubId(clubId);
 			}
 
 		} catch (ClassNotFoundException e) {
@@ -122,6 +122,7 @@ public class Post {
 	
 		return newPost;
 	}
+	
 	public static void addPost(Post post) {
 		Post newPost = post;
 //		int postId = newPost.getPostId();

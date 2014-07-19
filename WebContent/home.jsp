@@ -49,7 +49,7 @@
 		<!-- row 3 -->
 		<div class="row">
 			<div class="col-md-12">
-				<h2>Club Feed</h2>
+				<h2>Your BookClubs</h2>
 
 				<c:forEach items="${userClubList}" var="club">
 					<div>
@@ -65,7 +65,7 @@
 		<!-- row 4 -->
 		<div class="row">
 			<div class="col-md-12">
-				<h2>BookClubs</h2>
+				<h2>All BookClubs</h2>
 				<p>
 					<a href="AddClub">Start a new BookClub</a>
 				</p>

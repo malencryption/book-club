@@ -41,6 +41,8 @@ public class ClubPosts extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		int clubId = Integer.parseInt(request.getParameter("clubId"));
 		ArrayList<Post> clubPosts = getClubPosts(clubId);
+		String clubName = Club.getNameByClubId(clubId);
+		request.setAttribute("clubName", clubName);
 		request.setAttribute("clubPostList", clubPosts);
 		request.getRequestDispatcher("/clubPosts.jsp").forward(request, response);
 	}

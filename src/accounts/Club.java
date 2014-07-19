@@ -187,4 +187,35 @@ public class Club {
 		}
 		return clubList;
 	}
+
+	public static String getNameByClubId(int clubId) {
+		String name = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			// Properties prop = new Properties();
+			// prop.load(getClass().getResourceAsStream("/DbAccess.properties"));
+			//
+			// String user = prop.getProperty("dbUser");
+			// String pass = prop.getProperty("dbPassword");
+
+			DbConn dbConn = new DbConn();
+			Connection conn = dbConn.connect();
+			
+			String sql = "SELECT c.name FROM club c WHERE clubId = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, clubId);
+			ResultSet resultSet = stmt.executeQuery();
+
+			while (resultSet.next()) {
+				name = resultSet.getString("name");
+			}
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return name;
+	}
 }
