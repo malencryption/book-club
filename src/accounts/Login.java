@@ -63,10 +63,15 @@ public class Login extends HttpServlet {
 			// set session variable
 			session.setAttribute("accountId", userAccount.getAccountId());
 			ArrayList<Post> clubPostList = ClubPosts.getClubPostsByAcct(userAccount.getAccountId());
+			ArrayList<BookClub> bookClubList = BookClub.getBookClubs();
+			int clubId = HomePosts.getHomeClubId();
 			
 			request.setAttribute("clubPostList", clubPostList);
+			request.setAttribute("clubList", bookClubList);
+			request.setAttribute("clubId", clubId);
 			request.setAttribute("user", userAccount);
 			request.setAttribute("homePostList", homePostList);
+			
 			request.getRequestDispatcher("/home.jsp").forward(request, response);
 			
 //			response.sendRedirect("home.jsp");

@@ -29,14 +29,18 @@
 		</header>
 		<!-- row 2 -->
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-12">
 				<h2>Home Feed</h2>
+				<p>
+					<a href="AddPost?clubId=${clubId}">New Post</a>
+				</p>
 				<c:forEach items="${homePostList}" var="post">
 					<div>
 						<h3>${post.title}</h3>
 						<h4>${post.date}</h4>
 						<p>${post.content}</p>
-						<a class="btn btn-info" href="ViewPost?postId=${post.postId }">View Post</a>
+						<a class="btn btn-info" href="ViewPost?postId=${post.postId }">View
+							Post</a>
 					</div>
 				</c:forEach>
 
@@ -44,7 +48,7 @@
 		</div>
 		<!-- row 3 -->
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-12">
 				<h2>Club Feed</h2>
 
 				<c:forEach items="${clubPostList}" var="post">
@@ -52,7 +56,26 @@
 						<h3>${post.title}</h3>
 						<h4>${post.date}</h4>
 						<p>${post.content}</p>
-						<a class="btn btn-info" href="clubPosts?clubId=${post.clubId }">View Club</a>
+						<a class="btn btn-info" href="clubPosts?clubId=${post.clubId }">View
+							Club</a>
+					</div>
+				</c:forEach>
+			</div>
+		</div>
+		<!-- row 4 -->
+		<div class="row">
+			<div class="col-md-12">
+				<h2>BookClubs</h2>
+				<p>
+					<a href="AddClub">Start a new BookClub</a>
+				</p>
+				<c:forEach items="${clubList}" var="club">
+					<div>
+						<h3>${club.name}</h3>
+						<h4>${club.dateCreated}</h4>
+						<h4>${club.bookTitle}</h4>
+						<a class="btn btn-info" href="viewClub?clubId=${club.clubId }">View
+							Club</a>
 					</div>
 				</c:forEach>
 			</div>

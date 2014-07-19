@@ -29,14 +29,14 @@ public class GenreBook {
     this.genreId = genreId;
   }
 
-  public AuthorBook(int id, int bookId, int genreId) {
+  public GenreBook(int id, int bookId, int genreId) {
     super();
     this.id = id;
     this.bookId = bookId;
     this.genreId = genreId;
   }
 
-  public AuthorBook() {
+  public GenreBook() {
 
   }
 }

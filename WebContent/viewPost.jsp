@@ -31,7 +31,7 @@
 		<!-- row 2 -->
 		<div class="row">
 			<div class="col-md-6">
-				<h2>Club Post</h2>
+				<h2>View Post</h2>
 
 				<div>
 

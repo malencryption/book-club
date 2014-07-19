@@ -1,5 +1,12 @@
 package accounts;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import database.DbConn;
+
 public class ClubMember {
 	private int memberId;
 	private int clubId;
@@ -38,5 +45,40 @@ public class ClubMember {
 
 	public ClubMember(){
 		
+	}
+	
+	public static ArrayList<User> getClubMembers(int clubId){
+		//query to get all clubmembers 
+		ArrayList<User> newUserList = null;
+		return newUserList;
+	}
+	
+	public static void joinClub(int accountId, int clubId){
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			// Properties prop = new Properties();
+			// prop.load(getClass().getResourceAsStream("/DbAccess.properties"));
+			//
+			// String user = prop.getProperty("dbUser");
+			// String pass = prop.getProperty("dbPassword");
+
+			DbConn dbConn = new DbConn();
+			Connection conn = dbConn.connect();
+
+			String sql = "INSERT INTO clubMember ( clubId, accountId) VALUES (?, ?)";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, clubId);
+			stmt.setInt(2, accountId);
+			
+			stmt.executeUpdate();
+			
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

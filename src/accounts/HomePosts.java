@@ -37,8 +37,12 @@ public class HomePosts extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<Post> homePostList = getHomePosts();
-
+		int clubId = getHomeClubId();
+		
+		
+		
 		request.setAttribute("homePostList", homePostList);
+		request.setAttribute("clubId", clubId);
 		request.getRequestDispatcher("/home.jsp").forward(request, response);
 	}
 
@@ -64,7 +68,7 @@ public class HomePosts extends HttpServlet {
 			DbConn dbConn = new DbConn();
 			Connection conn = dbConn.connect();
 			Statement stmt = conn.createStatement();
-			String sql = "SELECT * FROM post p INNER JOIN club c ON p.clubId = c.clubId WHERE c.name='home'";
+			String sql = "SELECT * FROM post p INNER JOIN club c ON p.clubId = c.clubId WHERE name='home'";
 			ResultSet resultSet = stmt.executeQuery(sql);
 
 			while (resultSet.next()) {
@@ -92,5 +96,33 @@ public class HomePosts extends HttpServlet {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	public static int getHomeClubId() {
+		int clubId = 0;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			// Properties prop = new Properties();
+			// prop.load(getClass().getResourceAsStream("/DbAccess.properties"));
+			//
+			// String user = prop.getProperty("dbUser");
+			// String pass = prop.getProperty("dbPassword");
+
+			DbConn dbConn = new DbConn();
+			Connection conn = dbConn.connect();
+			Statement stmt = conn.createStatement();
+			String sql = "SELECT clubId FROM club WHERE name='home'";
+			ResultSet resultSet = stmt.executeQuery(sql);
+
+			while (resultSet.next()) {
+				clubId = resultSet.getInt("clubId");
+			}
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return clubId;
 	}
 }

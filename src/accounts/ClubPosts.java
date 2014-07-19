@@ -113,7 +113,7 @@ public class ClubPosts extends HttpServlet {
 			DbConn dbConn = new DbConn();
 			Connection conn = dbConn.connect();
 			
-			String sql = "SELECT * FROM post p INNER JOIN club c ON p.clubId = c.clubId WHERE accountId = ? AND NOT c.name='home'";
+			String sql = "SELECT * FROM post p INNER JOIN club c ON p.clubId = c.clubId WHERE accountId = ? AND NOT name='home'";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, acctId);
 			ResultSet resultSet = stmt.executeQuery();
