@@ -20,7 +20,7 @@
 		</div>
 		<!-- internal row -->
 		<div class="row">
-			<div class="col-md-9">
+			<div class="col-md-9 col-xs-9">
 			<ul class="nav nav-tabs" role="tablist">
 				<li><a href="index.jsp">Login</a></li>
 				<li><a href="home.jsp">Home Feed</a></li>
@@ -28,7 +28,7 @@
 				<li class="active"><a href="ViewPost">Post View</a></li>
 			</ul>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-3 col-xs-3">
 				<ul class="nav nav-tabs" role="tablist">
 					<li><a href="Logout">Logout</a></li>
 				</ul>

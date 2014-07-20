@@ -40,9 +40,14 @@ public class Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Post> homePostList = HomePosts.getHomePosts();
-		request.setAttribute("homePostList", homePostList);
-		request.getRequestDispatcher("/home.jsp").forward(request, response);
+		HttpSession session = request.getSession();
+		int accountId = (Integer) session.getAttribute("accountId");
+		if (accountId == 0){
+			response.sendRedirect("/index.jsp");
+		}
+		else {
+		 response.sendRedirect("HomePosts");
+		}
 	}
 
 	/**

@@ -2,6 +2,7 @@ package accounts;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -43,17 +44,45 @@ public class ClubMember {
 		this.accountId = accountId;
 	}
 
-	public ClubMember(){
-		
+	public ClubMember() {
+
 	}
-	
-	public static ArrayList<User> getClubMembers(int clubId){
-		//query to get all clubmembers 
-		ArrayList<User> newUserList = null;
-		return newUserList;
+
+	public static ArrayList<UserAccount> getClubMembers(int clubId) {
+		// query to get all clubmembers
+		ArrayList<UserAccount> userList = new ArrayList<UserAccount>();
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			// Properties prop = new Properties();
+			// prop.load(getClass().getResourceAsStream("/DbAccess.properties"));
+			//
+			// String user = prop.getProperty("dbUser");
+			// String pass = prop.getProperty("dbPassword");
+
+			DbConn dbConn = new DbConn();
+			Connection conn = dbConn.connect();
+
+			String sql = "SELECT a.accountId FROM clubMember cm INNER JOIN club c ON cm.clubId = c.clubId JOIN account a ON a.accountId = cm.accountId WHERE c.clubId=?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, clubId);
+			ResultSet resultSet = stmt.executeQuery();
+			UserAccount userAccount = new UserAccount();
+			while (resultSet.next()) {
+				int accountId = resultSet.getInt("accountId");
+				userAccount.setAccountId(accountId);
+				userList.add(userAccount);
+			}
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return userList;
 	}
-	
-	public static void joinClub(int accountId, int clubId){
+
+	public static void joinClub(int accountId, int clubId) {
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -71,14 +100,25 @@ public class ClubMember {
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, clubId);
 			stmt.setInt(2, accountId);
-			
+
 			stmt.executeUpdate();
-			
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static boolean checkClubStatus(int clubId, int accountId) {
+		boolean status = false;
+		ArrayList<UserAccount> userList = getClubMembers(clubId);
+		for (UserAccount u : userList){
+			int id = u.getAccountId();
+			if (id == accountId){
+				status = true;
+			}
+		}
+		return status;
 	}
 }

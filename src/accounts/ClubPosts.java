@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import database.DbConn;
 
@@ -39,11 +40,17 @@ public class ClubPosts extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		int accountId = (Integer) session.getAttribute("accountId");
+		
 		int clubId = Integer.parseInt(request.getParameter("clubId"));
 		ArrayList<Post> clubPosts = getClubPosts(clubId);
 		String clubName = Club.getNameByClubId(clubId);
+		boolean clubStatus = ClubMember.checkClubStatus(clubId, accountId);
 		request.setAttribute("clubName", clubName);
 		request.setAttribute("clubPostList", clubPosts);
+		request.setAttribute("clubStatus", clubStatus);
+		
 		request.getRequestDispatcher("/clubPosts.jsp").forward(request, response);
 	}
 

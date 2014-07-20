@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Group View</title>
+<title>Club View</title>
 <!-- Bootstrap -->
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="bootstrap/css/custom.css" rel="stylesheet">
@@ -20,14 +20,14 @@
 		</div>
 		<!-- internal row -->
 		<div class="row">
-			<div class="col-md-9">
+			<div class="col-md-9 col-xs-9">
 			<ul class="nav nav-tabs" role="tablist">
 				<li><a href="index.jsp">Login</a></li>
 				<li><a href="HomePosts">Home Feed</a></li>
-				<li class="active"><a href="ClubPosts">Club View</a></li>
+				<li class="active"><a href="clubPosts">Club View</a></li>
 			</ul>
 				</div>
-			<div class="col-md-3">
+			<div class="col-md-3 col-xs-3">
 				<ul class="nav nav-tabs" role="tablist">
 					<li><a href="Logout">Logout</a></li>
 				</ul>
@@ -37,8 +37,13 @@
 		<!-- row 2 -->
 		<div class="row">
 			<div class="col-md-6">
-				<h2>${clubName} Posts</h2>
+				<h2>Club: ${clubName}</h2>
+				<c:if test="${clubStatus == false }"> 
+				<p><a href="JoinClub?clubId=${param.clubId }">Join Club</a></p>
+				</c:if>
+				<p>${param.msg}</p>
 				<p><a href="AddPost?clubId=${param.clubId }">New Post</a></p>
+				<h3>Posts:</h3>
 				<c:forEach items="${clubPostList}" var="post">
 					<div>
 						<h3>${post.title }</h3>

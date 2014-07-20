@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import accounts.BookClub;
 import accounts.ClubPosts;
 import accounts.HomePosts;
 import accounts.Post;
@@ -49,20 +50,25 @@ public class CallBack extends HttpServlet {
 				fbUser = UserAccount.addUserAccountWithFb(facebook);
 			}
 			ArrayList<Post> homePostList = HomePosts.getHomePosts();
+			int accountId = fbUser.getAccountId();
 			// set session variable
-			session.setAttribute("accountId", fbUser.getAccountId());
-			ArrayList<Post> clubPostList = ClubPosts.getClubPostsByAcct(fbUser.getAccountId());
+			session.setAttribute("accountId", accountId);
+			ArrayList<BookClub> userClubList = BookClub.getBookClubsByAcct(accountId);
+			int clubId = HomePosts.getHomeClubId();
+			ArrayList<BookClub> bookClubList = BookClub.getBookClubs();
 			
-			request.setAttribute("clubPostList", clubPostList);
+			request.setAttribute("userClubList", userClubList);
 			request.setAttribute("user", fbUser);
+			request.setAttribute("clubId", clubId);
 			request.setAttribute("homePostList", homePostList);
+			request.setAttribute("clubList", bookClubList);
 			
-			
+			request.getRequestDispatcher("/home.jsp").forward(request, response);
 		} catch (FacebookException e) {
 			e.printStackTrace();
 		}
 			
-		request.getRequestDispatcher("/home.jsp").forward(request, response);
+		
 	}
 
 	/**

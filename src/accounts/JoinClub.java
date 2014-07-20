@@ -1,29 +1,25 @@
-package database;
+package accounts;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import accounts.ClubMember;
-import accounts.User;
-import accounts.UserAccount;
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class ViewClub
+ * Servlet implementation class JoinClub
  */
-@WebServlet("/ViewClub")
-public class ViewClub extends HttpServlet {
+@WebServlet("/JoinClub")
+public class JoinClub extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ViewClub() {
+    public JoinClub() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,12 +28,15 @@ public class ViewClub extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-int clubId = Integer.parseInt(request.getParameter("clubId"));
-		ArrayList<UserAccount> clubMembers = ClubMember.getClubMembers(clubId);
-		request.setAttribute("clubMembers", clubMembers);
+		HttpSession session = request.getSession();
+		int accountId = (Integer) session.getAttribute("accountId");
 		
-		request.getRequestDispatcher("/viewClub.jsp").forward(request, response);
-	
+		int clubId = Integer.parseInt(request.getParameter("clubId"));
+		ClubMember.joinClub(accountId, clubId);
+		String msg = "Welcome to the club ;-)";
+		
+		request.setAttribute("msg", msg);
+		request.getRequestDispatcher("/clubPosts?clubId=" + clubId).forward(request, response);
 	}
 
 	/**

@@ -20,14 +20,14 @@
 		</div>
 		<!-- internal row -->
 		<div class="row">
-			<div class="col-md-9">
+			<div class="col-md-9 col-xs-6">
 				<ul class="nav nav-tabs" role="tablist">
 					<li><a href="index.jsp">Login</a></li>
 					<li class="active"><a href="HomePosts">Home Feed</a></li>
-					<li><a href="ClubPosts">Club View</a></li>
+					<li><a href="clubPosts">Club View</a></li>
 				</ul>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-3 col-xs-6">
 				<ul class="nav nav-tabs" role="tablist">
 					<li><a href="Logout">Logout</a></li>
 				</ul>
@@ -85,7 +85,7 @@
 						<h4>
 							<span class="glyphicon glyphicon-book"></span> ${club.bookTitle}
 						</h4>
-						<a class="btn btn-info" href="viewClub?clubId=${club.clubId }">View
+						<a class="btn btn-info" href="clubPosts?clubId=${club.clubId }">View
 							Club</a>
 					</div>
 				</c:forEach>

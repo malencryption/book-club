@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Facebook Login Page</title>
+<title>Login Page</title>
 <!-- Bootstrap -->
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="bootstrap/css/custom.css" rel="stylesheet">
@@ -34,7 +34,7 @@
 		</header>
 		<!-- row 2 -->
 		<div class="row">
-			<div class="col-md-3">
+			<div class="col-md-6 col-xs-12">
 				<h2>Login</h2>
 				<form role="form" action="Login" method="POST">
 					<div class="form-group">
@@ -48,7 +48,7 @@
 					<button type="submit">Login</button>
 				</form>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-6 col-xs-12">
 				<p>Or click here to</p>
 				<a class="btn btn-info" href="SignIn"> Login with Facebook</a>
 				<p>Or click here to</p>
