@@ -63,7 +63,7 @@ public class ClubMember {
 			DbConn dbConn = new DbConn();
 			Connection conn = dbConn.connect();
 
-			String sql = "SELECT a.accountId FROM clubMember cm INNER JOIN club c ON cm.clubId = c.clubId JOIN account a ON a.accountId = cm.accountId WHERE c.clubId=?";
+			String sql = "SELECT a.accountId FROM clubmember cm INNER JOIN club c ON cm.clubId = c.clubId JOIN account a ON a.accountId = cm.accountId WHERE c.clubId=?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, clubId);
 			ResultSet resultSet = stmt.executeQuery();
@@ -96,7 +96,7 @@ public class ClubMember {
 			DbConn dbConn = new DbConn();
 			Connection conn = dbConn.connect();
 
-			String sql = "INSERT INTO clubMember ( clubId, accountId) VALUES (?, ?)";
+			String sql = "INSERT INTO clubmember ( clubId, accountId) VALUES (?, ?)";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, clubId);
 			stmt.setInt(2, accountId);

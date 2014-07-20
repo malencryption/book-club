@@ -12,14 +12,12 @@
 <body>
 	<div class="container">
 		<!-- row 1 -->
-		<header class="row">
+		<header class="row head-section">
 		<div class="col-md-9">
-			<img alt="books" src="/bootstrap/img/books.jpg">
 			<p class="little-head">Welcome to the</p>
-			<h1>Book Club App</h1>
-		</div>
-		<div class="col-md-3">
-			<p>Welcome ${user.firstName }</p>
+			<h1>
+				Book<span class="txt-blue">Club</span>App
+			</h1>
 		</div>
 		<!-- internal row -->
 		<div class="row">
@@ -33,7 +31,7 @@
 		</div>
 		</header>
 		<!-- row 2 -->
-		<div class="row">
+		<div class="row main-section">
 			<div class="col-md-6 col-xs-12">
 				<h2>Login</h2>
 				<form role="form" action="Login" method="POST">
@@ -45,14 +43,16 @@
 						<label for="password">Password:</label> <input
 							class="form-control" type="password" name="password" />
 					</div>
-					<button type="submit">Login</button>
+					<button class="btn btn-info" type="submit">Login</button>
 				</form>
 			</div>
 			<div class="col-md-6 col-xs-12">
-				<p>Or click here to</p>
+				<h2>-OR-</h2>
+				<p>click here to</p>
 				<a class="btn btn-info" href="SignIn"> Login with Facebook</a>
-				<p>Or click here to</p>
-				<a class="btn btn-info" href="register.jsp"> Register with BookClub</a>
+				<p>click here to</p>
+				<a class="btn btn-info" href="register.jsp"> Register with
+					BookClub</a>
 			</div>
 		</div>
 	</div>

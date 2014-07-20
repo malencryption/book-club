@@ -34,14 +34,17 @@
 
 				<h2>Start a new BookClub</h2>
 
-				<form method="post" action="AddClub">
-					<label for="name">Club Name</label><input type="text" name="name" />
-
-					<label>Select a book:</label><select name="bookId">
+				<form method="post" action="AddClub" role="form">
+					<div class="form-group">
+						<label for="name">Club Name</label><input class="form-control" type="text" name="name" />
+					</div>
+					<div class="form-group">
+					<label>Select a book:</label><select  class="form-control" name="bookId">
 						<c:forEach items="${bookList }" var="book">
 							<option value="${book.bookId }">${book.title }</option>
 						</c:forEach>
 					</select>
+					</div>
 					<button class="btn btn-info" type="submit">Create Club</button>
 				</form>
 			</div>

@@ -113,7 +113,7 @@ public class BookClub {
 			DbConn dbConn = new DbConn();
 			Connection conn = dbConn.connect();
 
-			String sql = "SELECT c.clubId, c.dateCreated, c.name, c.bookId, b.title FROM club c JOIN book b ON c.bookId = b.bookId JOIN clubMember cm ON c.clubId = cm.clubId WHERE accountId=? ";
+			String sql = "SELECT c.clubId, c.dateCreated, c.name, c.bookId, b.title FROM club c JOIN book b ON c.bookId = b.bookId JOIN clubmember cm ON c.clubId = cm.clubId WHERE accountId=? ";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, accountId);
 

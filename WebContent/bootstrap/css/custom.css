@@ -4,12 +4,11 @@
 }
 */
 div.container {
-	
-	-moz-box-shadow: 1px 2px 3px rgba(0,0,0,.5);
-	-webkit-box-shadow: 1px 2px 3px rgba(0,0,0,.5);
-	box-shadow: 1px 2px 3px rgba(0,0,0,.5);
+	-moz-box-shadow: 1px 2px 3px rgba(0, 0, 0, .5);
+	-webkit-box-shadow: 1px 2px 3px rgba(0, 0, 0, .5);
+	box-shadow: 1px 2px 3px rgba(0, 0, 0, .5);
 	color: #696969;
-	background-color: rgba(255, 255, 255, .7);
+	background-color: white;
 	margin-top: 5%;
 	margin-bottom: 5%;
 	padding-bottom: 40px;
@@ -18,7 +17,33 @@ div.container {
 }
 
 .little-head {
-margin-bottom: -30px;
-margin-left: 13px;
-margin-top: 40px;
+	margin-bottom: -30px;
+	margin-left: 13px;
+	margin-top: 40px;
+}
+
+div.head-section {
+	color: #696969;
+	border-bottom: maroon 1px solid;
+}
+
+.txt-maroon {
+	color: #761618;
+}
+
+div.main-section {
+	background-color: white;
+	padding-bottom: 10px;
+}
+
+div.foot-section {
+	border-top: maroon 1px solid;
+}
+.txt-blue {
+	color: #1D97C3;
+}
+
+h1, h2, h3, h4 {
+	font-family: "Book Antiqua", Georgia, sans-serif;
+	
 }
