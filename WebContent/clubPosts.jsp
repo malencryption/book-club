@@ -20,11 +20,18 @@
 		</div>
 		<!-- internal row -->
 		<div class="row">
+			<div class="col-md-9">
 			<ul class="nav nav-tabs" role="tablist">
 				<li><a href="index.jsp">Login</a></li>
 				<li><a href="HomePosts">Home Feed</a></li>
 				<li class="active"><a href="ClubPosts">Club View</a></li>
 			</ul>
+				</div>
+			<div class="col-md-3">
+				<ul class="nav nav-tabs" role="tablist">
+					<li><a href="Logout">Logout</a></li>
+				</ul>
+			</div>
 		</div>
 		</header>
 		<!-- row 2 -->

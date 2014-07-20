@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import database.DbConn;
 
@@ -36,13 +37,22 @@ public class HomePosts extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		ArrayList<Post> homePostList = getHomePosts();
 		int clubId = getHomeClubId();
 		
+		// Get session variable
+		int accountId = (Integer) session.getAttribute("accountId");
+		UserAccount userAccount = UserAccount.getUserAccountByAcctId(accountId);
+		ArrayList<BookClub> userClubList = BookClub.getBookClubsByAcct(accountId);
+		ArrayList<BookClub> bookClubList = BookClub.getBookClubs();
 		
-		
+		request.setAttribute("userClubList", userClubList);
+		request.setAttribute("clubList", bookClubList);
+		request.setAttribute("user", userAccount);
 		request.setAttribute("homePostList", homePostList);
 		request.setAttribute("clubId", clubId);
+		
 		request.getRequestDispatcher("/home.jsp").forward(request, response);
 	}
 
@@ -97,6 +107,7 @@ public class HomePosts extends HttpServlet {
 		}
 		return list;
 	}
+
 	public static int getHomeClubId() {
 		int clubId = 0;
 		try {
