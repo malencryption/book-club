@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Home</title>
+<title>Club View</title>
 <!-- Bootstrap -->
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="bootstrap/css/custom.css" rel="stylesheet">
@@ -25,8 +25,8 @@
 			<div class="col-md-9 col-xs-6">
 				<ul class="nav nav-tabs" role="tablist">
 					<li><a href="index.jsp">Login</a></li>
-					<li class="active"><a href="HomePosts">Home Feed</a></li>
-					<li><a href="ClubView">Club View</a></li>
+					<li><a href="HomePosts">Home Feed</a></li>
+					<li class="active"><a href="clubView">Club View</a></li>
 				</ul>
 			</div>
 			<div class="col-md-3 col-xs-6">
@@ -37,43 +37,6 @@
 		</div>
 		</header>
 		<!-- row 2 -->
-		<div class="row main-section">
-			<div class="col-md-12">
-				<h2>Home Feed</h2>
-				<p>
-					<a href="AddPost?clubId=${clubId}">New Post</a>
-				</p>
-				<c:forEach items="${homePostList}" var="post">
-					<div>
-						<h3>${post.title}</h3>
-						<h4>${post.date}</h4>
-						<p>${post.content}</p>
-						<a class="btn btn-info" href="ViewPost?postId=${post.postId }">View
-							Post</a>
-					</div>
-				</c:forEach>
-
-			</div>
-		</div>
-		<!-- row 3 -->
-		<div class="row">
-			<div class="col-md-12">
-				<h2>Your BookClubs</h2>
-
-				<c:forEach items="${userClubList}" var="club">
-					<div>
-						<h3>${club.name}</h3>
-						<h4>${club.dateCreated}</h4>
-						<p>
-							<span class="glyphicon glyphicon-book"></span> ${club.bookTitle}
-						</p>
-						<a class="btn btn-info" href="clubPosts?clubId=${club.clubId }">View
-							Club</a>
-					</div>
-				</c:forEach>
-			</div>
-		</div>
-		<!-- row 4 -->
 		<div class="row">
 			<div class="col-md-12">
 				<h2>All BookClubs</h2>

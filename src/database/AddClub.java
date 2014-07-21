@@ -38,9 +38,26 @@ public class AddClub extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// build addClub page
-		ArrayList<Book> bookList = Book.getBookList();
-		request.setAttribute("bookList", bookList);
-		request.getRequestDispatcher("/addClub.jsp").forward(request, response);
+		HttpSession session = request.getSession();
+
+		int accountId = 0;
+		// Get session variable
+		if (session.getAttribute("accountId") != null) {
+			accountId = (Integer) session.getAttribute("accountId");
+		}
+
+		if (accountId == 0) {
+			String error = "Sorry, please login first.";
+			request.setAttribute("error", error);
+			request.getRequestDispatcher("/index.jsp").forward(request,
+					response);
+		} else {
+
+			ArrayList<Book> bookList = Book.getBookList();
+			request.setAttribute("bookList", bookList);
+			request.getRequestDispatcher("/addClub.jsp").forward(request,
+					response);
+		}
 	}
 
 	/**
@@ -53,17 +70,17 @@ public class AddClub extends HttpServlet {
 		int accountId = (Integer) session.getAttribute("accountId");
 		String name = request.getParameter("name");
 		int bookId = Integer.parseInt(request.getParameter("bookId"));
-		
+
 		Date dt = new Date();
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 		String currentTime = sdf.format(dt);
-		Club newClub= new Club();
+		Club newClub = new Club();
 		newClub.setBookId(bookId);
 		newClub.setDateCreated(currentTime);
 		newClub.setName(name);
-		
+
 		int clubId = Club.addClub(newClub);
 		ClubMember.joinClub(accountId, clubId);
 		response.sendRedirect("/clubPosts?clubId=" + clubId);

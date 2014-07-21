@@ -32,10 +32,8 @@ public class Logout extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 
-		if ((request.getParameter("action")).equals("logout")) {
 			session.invalidate();
-			response.sendRedirect("/index.jsp");
-		}
+			response.sendRedirect("/bookClub/index.jsp");
 	}
 
 	/**

@@ -38,7 +38,7 @@
 		<div class="row">
 			<div class="col-md-6">
 				<h2>Club: ${clubName}</h2>
-				<c:if test="${clubStatus == false }"> 
+				<c:if test="${clubStatus == false } && ${!homeStatus} "> 
 				<p><a href="JoinClub?clubId=${param.clubId }">Join Club</a></p>
 				</c:if>
 				<p>${param.msg}</p>

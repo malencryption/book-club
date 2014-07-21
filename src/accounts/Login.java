@@ -81,7 +81,9 @@ public class Login extends HttpServlet {
 			
 //			response.sendRedirect("home.jsp");
 		} else {
-			response.sendRedirect("/login.jsp");
+			String error = "Sorry, could not login.";
+			request.setAttribute("error", error);
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
 		}
 	}
 

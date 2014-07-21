@@ -24,7 +24,7 @@
 			<ul class="nav nav-tabs" role="tablist">
 				<li><a href="index.jsp">Login</a></li>
 				<li><a href="home.jsp">Home Feed</a></li>
-				<li><a href="ClubPosts">Club View</a></li>
+				<li><a href="clubPosts?clubId=${post.clubId}">Club View</a></li>
 				<li class="active"><a href="ViewPost">Post View</a></li>
 			</ul>
 			</div>

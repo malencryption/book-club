@@ -37,14 +37,30 @@ public class HomePosts extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
+		
 		ArrayList<Post> homePostList = getHomePosts();
 		int clubId = getHomeClubId();
+		int accountId = 0;
+		UserAccount userAccount = null;
+		ArrayList<BookClub> userClubList = null;
+		
+		System.out.println(session.getAttribute("accountId"));
+		System.out.println(accountId);
 		
 		// Get session variable
-		int accountId = (Integer) session.getAttribute("accountId");
-		UserAccount userAccount = UserAccount.getUserAccountByAcctId(accountId);
-		ArrayList<BookClub> userClubList = BookClub.getBookClubsByAcct(accountId);
+		if (session.getAttribute("accountId") != null) {
+			accountId = (Integer) session.getAttribute("accountId");
+			userAccount = UserAccount.getUserAccountByAcctId(accountId);
+			userClubList = BookClub.getBookClubsByAcct(accountId);
+		}
+		if (accountId == 0 ){
+			String error = "Sorry, please login first.";
+			request.setAttribute("error", error);
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
+		}
+		else {
+		
 		ArrayList<BookClub> bookClubList = BookClub.getBookClubs();
 		
 		request.setAttribute("userClubList", userClubList);
@@ -54,6 +70,7 @@ public class HomePosts extends HttpServlet {
 		request.setAttribute("clubId", clubId);
 		
 		request.getRequestDispatcher("/home.jsp").forward(request, response);
+		}
 	}
 
 	/**

@@ -25,7 +25,7 @@
 				<ul class="nav nav-tabs" role="tablist">
 					<li class="active"><a href="index.jsp">Login</a></li>
 					<li><a href="HomePosts">Home Feed</a></li>
-					<li><a href="ClubPosts">Club View</a></li>
+					<li><a href="ClubView">Club View</a></li>
 				</ul>
 			</div>
 		</div>
@@ -34,6 +34,7 @@
 		<div class="row main-section">
 			<div class="col-md-6 col-xs-12">
 				<h2>Login</h2>
+				<p>${error}</p>
 				<form role="form" action="Login" method="POST">
 					<div class="form-group">
 						<label for="email">Email:</label> <input class="form-control"

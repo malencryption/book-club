@@ -41,17 +41,43 @@ public class ClubPosts extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		int accountId = (Integer) session.getAttribute("accountId");
-		
+
 		int clubId = Integer.parseInt(request.getParameter("clubId"));
+		int accountId = 0;
+
+		// Get session variable
+		if (session.getAttribute("accountId") != null) {
+			accountId = (Integer) session.getAttribute("accountId");
+		}
+
+		if (clubId == 0) {
+			clubId = HomePosts.getHomeClubId();
+		}
+		if (accountId == 0 ){
+			String error = "Sorry, please login first.";
+			request.setAttribute("error", error);
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
+		}
+		else {
 		ArrayList<Post> clubPosts = getClubPosts(clubId);
 		String clubName = Club.getNameByClubId(clubId);
 		boolean clubStatus = ClubMember.checkClubStatus(clubId, accountId);
+		int homeClubId = HomePosts.getHomeClubId();
+		boolean homeStatus = true;
+		if (homeClubId != clubId) {
+			homeStatus = false;
+		}
+		else {
+			homeStatus = true;
+		}
 		request.setAttribute("clubName", clubName);
+		request.setAttribute("homeStatus", homeStatus);
 		request.setAttribute("clubPostList", clubPosts);
 		request.setAttribute("clubStatus", clubStatus);
-		
-		request.getRequestDispatcher("/clubPosts.jsp").forward(request, response);
+
+		request.getRequestDispatcher("/clubPosts.jsp").forward(request,
+				response);
+		}
 	}
 
 	private ArrayList<Post> getClubPosts(int clubId) {
@@ -67,7 +93,7 @@ public class ClubPosts extends HttpServlet {
 
 			DbConn dbConn = new DbConn();
 			Connection conn = dbConn.connect();
-			
+
 			String sql = "SELECT * FROM post p INNER JOIN club c ON p.clubId = c.clubId WHERE c.clubId=?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, clubId);
@@ -108,6 +134,7 @@ public class ClubPosts extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 	}
+
 	public static ArrayList<Post> getClubPostsByAcct(int acctId) {
 		ArrayList<Post> list = new ArrayList<Post>();
 		try {
@@ -121,7 +148,7 @@ public class ClubPosts extends HttpServlet {
 
 			DbConn dbConn = new DbConn();
 			Connection conn = dbConn.connect();
-			
+
 			String sql = "SELECT * FROM post p INNER JOIN club c ON p.clubId = c.clubId WHERE accountId = ? AND NOT name='home'";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, acctId);
